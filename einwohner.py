@@ -1,7 +1,7 @@
 from urllib.error import URLError
 
-import altair as alt
-import pandas as pd
+import altair as alt 
+import pandas as pd   # verarbeitung von Tabellarischen Daten 
 import streamlit as st
 
 
@@ -10,7 +10,7 @@ def get_data():
     df = pd.read_csv(
         "https://opendata.luebeck.de/bereich/1.102/statistik/bevoelkerung/"
         "einwohner-stadtteile/einwohner-stadtteile.csv",
-        sep=";",
+        sep=";", #benutze seperator ;
     )
 
     df = df.set_index("stadtteil_name")
@@ -36,7 +36,7 @@ try:
 
         chart = (
             alt.Chart(df)
-            .mark_line()
+            .mark_point()
             .encode(
                 x=alt.X("stichtag", title="Stichtag"),
                 y=alt.Y("einwohner", title="Einwohner"),
@@ -47,3 +47,4 @@ try:
         st.altair_chart(chart, use_container_width=True)
 except URLError as e:
     st.error(f"Daten konnten nicht geladen werden: {e.reason}")
+
